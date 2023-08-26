@@ -54,8 +54,10 @@ class NetworkErrorPopupViewController: UIViewController {
     
     
     @IBAction func retryDidTap(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-        delegate?.didTapRetryButton()
+        Task{ [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+            await delegate?.didTapRetryButton()
+        }
         
     }
     
