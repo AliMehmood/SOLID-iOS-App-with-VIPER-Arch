@@ -29,25 +29,24 @@ final class RequestManager: NSObject {
         return URLSession(configuration: configuration)
     }
     
-    func performRequest<T: Codable>(request:URLRequest,completion: @escaping (_ response: Result<T>) -> Void) {
+    func performRequest<T: Codable>(request:URLRequest) async -> Result<T>{
         guard let url = request.url else {
-            return
+            return Result.failure(URLError.init(.badURL))
         }
-        
-        let task = sessionManager.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-//            print(String(data: data, encoding: .utf8)!)
-            if  error != nil{
-                completion(Result.failure(error!))
-            }
+        do{
+            let (data, _) = try await sessionManager.data(from: url)
             if let decodedResponse = try? JSONDecoder().decode(T.self, from: data){
-                completion(Result.success(decodedResponse))
+                return Result.success(decodedResponse)
             }else{
                 print("ERROR DECODING JSON RESPONSE")
+                return Result.failure(URLError.init(.cannotDecodeRawData))
             }
-            return
+            
+        }catch {
+            debugPrint("data could not be fetched, with error: " + error.localizedDescription)
+            return Result.failure(error)
         }
-        task.resume()
+        
     }
     
 }
