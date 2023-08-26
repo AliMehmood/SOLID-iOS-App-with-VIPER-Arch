@@ -19,24 +19,18 @@ class TrendingInteractor: TrendingPresenterToInteractorProtocol{
         self.service = service
     }
     
-    func fetchTrendingRepos() {
-        self.service?.fetchTrendingRepos(completion: { result in
-            
-            // TODO: Un Comment following 2 lines to view Retry and user busy Lottie effect
-//            self.presenter?.reposFetchFailed()
-//            return
-            
-            switch result{
-            case .success(let repos):
-                self.presenter?.reposFetchedSuccess(reposModelArray: repos.items ?? [])
-                break
-            case .failure(_):
-                self.presenter?.reposFetchFailed()
-                break
-           
-            }
-        })
+    func fetchTrendingRepos() async {
         
+        let result = await self.service?.fetchTrendingRepos()
+        switch result{
+        case .success(let repos):
+            self.presenter?.reposFetchedSuccess(reposModelArray: repos.items ?? [])
+            break
+        case .failure(_), .none:
+            self.presenter?.reposFetchFailed()
+            break
+            
+        }
     }
 }
 

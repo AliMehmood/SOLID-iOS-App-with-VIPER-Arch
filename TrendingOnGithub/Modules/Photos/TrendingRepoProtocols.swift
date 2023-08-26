@@ -12,7 +12,7 @@ protocol TrendingViewToPresenterProtocol: AnyObject{
     var view: TrendingPresenterToViewProtocol? {get set}
     var interactor: TrendingPresenterToInteractorProtocol? {get set}
     var router: TrendingPresenterToRouterProtocol? {get set}
-    func startFetchingTrendingRepos()
+    func startFetchingTrendingRepos() async
 
 }
 
@@ -29,7 +29,7 @@ protocol TrendingPresenterToRouterProtocol: AnyObject {
 protocol TrendingPresenterToInteractorProtocol: AnyObject {
     var presenter:TrendingInteractorToPresenterProtocol? {get set}
     var service : ServiceProtocol?  { get set }
-    func fetchTrendingRepos()
+    func fetchTrendingRepos() async
 }
 
 protocol TrendingInteractorToPresenterProtocol: AnyObject {

@@ -15,6 +15,7 @@ final class DBService: NSObject, ServiceProtocol {
     
     
     
-    public func fetchTrendingRepos(completion: @escaping (_ result: Result<RepositoriesResponse>)->Void){
+    public func fetchTrendingRepos() -> Result<RepositoriesResponse>{
+        return .failure(CancellationError())
     }
 }

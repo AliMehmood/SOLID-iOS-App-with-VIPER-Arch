@@ -15,8 +15,8 @@ class TrendingPresenter:TrendingViewToPresenterProtocol {
     
     var router: TrendingPresenterToRouterProtocol?
     
-    func startFetchingTrendingRepos() {
-        self.interactor?.fetchTrendingRepos()
+    func startFetchingTrendingRepos() async {
+        await self.interactor?.fetchTrendingRepos()
     }
     
 

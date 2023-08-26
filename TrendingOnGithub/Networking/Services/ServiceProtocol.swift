@@ -8,5 +8,5 @@
 import Foundation
 protocol ServiceProtocol{
     
-    func fetchTrendingRepos(completion: @escaping (_ result: Result<RepositoriesResponse>)->Void)
+    func fetchTrendingRepos() async -> Result<RepositoriesResponse>
 }

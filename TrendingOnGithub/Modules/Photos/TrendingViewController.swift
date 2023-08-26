@@ -28,13 +28,11 @@ class TrendingViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        // TODO: Comment below line to view loading skeleton effect on tableview
-        startFetchingTrendingRepos()
     }
     
-    func startFetchingTrendingRepos(){
+    func startFetchingTrendingRepos() async{
         self.myActivityIndicator?.startAnimating()
-        presentor?.startFetchingTrendingRepos()
+        await presentor?.startFetchingTrendingRepos()
     }
     
     override func setupViews(){
@@ -137,8 +135,8 @@ extension TrendingViewController : TrendingPresenterToViewProtocol{
 }
 extension TrendingViewController : NetworkErrorPopupViewControllerDelegate{
     
-    func didTapRetryButton() {
-        self.startFetchingTrendingRepos()
+    func didTapRetryButton() async {
+        await self.startFetchingTrendingRepos()
     }
     
     

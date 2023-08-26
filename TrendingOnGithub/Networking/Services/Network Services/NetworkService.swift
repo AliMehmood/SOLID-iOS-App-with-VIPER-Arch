@@ -14,11 +14,9 @@ final class NetworkService: NSObject, ServiceProtocol {
     
     fileprivate override init() {}
     
-    func fetchTrendingRepos(completion: @escaping (Result<RepositoriesResponse>) -> Void) {
+    func fetchTrendingRepos() async -> Result<RepositoriesResponse>{
         let request = RequestBuilder.shared.getRequestForTrendingRepos()
-        self.requestManager.performRequest(request: request) { response in
-            completion(response)
-        }
+        return await self.requestManager.performRequest(request: request)
     }
 }
 

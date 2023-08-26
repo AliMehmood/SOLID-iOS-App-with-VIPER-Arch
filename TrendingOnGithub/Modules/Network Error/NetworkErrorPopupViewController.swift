@@ -9,7 +9,7 @@ import UIKit
 import SDWebImageLottieCoder
 
 protocol NetworkErrorPopupViewControllerDelegate{
-    func didTapRetryButton()
+    func didTapRetryButton() async
 }
 
 class NetworkErrorPopupViewController: UIViewController {
