@@ -29,7 +29,8 @@ class TrendingViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool)  {
         Task{
             // MARK: Comment below line to view loading skeleton effect on tableview
-            await startFetchingTrendingRepos()}
+            await startFetchingTrendingRepos()            
+        }
         
         
     }
