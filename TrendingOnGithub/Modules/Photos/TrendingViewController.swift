@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class TrendingViewController: BaseViewController {
 
@@ -27,9 +28,9 @@ class TrendingViewController: BaseViewController {
     }
     
     override func viewDidAppear(_ animated: Bool)  {
-        Task{
+        Task{[weak self] in
             // MARK: Comment below line to view loading skeleton effect on tableview
-            await startFetchingTrendingRepos()            
+            await self?.startFetchingTrendingRepos()
         }
         
         
@@ -128,14 +129,12 @@ extension TrendingViewController : TrendingPresenterToViewProtocol{
             self.myActivityIndicator?.stopAnimating()
             self.presentor?.router?.callRetryPopupScreen(viewController: self)
         }
-        
-        
-        
-//        let alert = UIAlertController(title: "Alert", message: "Problem Fetching Trending Repos", preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
     }
     
+    //MARK: Local Notification
+    func notifyDataFetchedSuccessfully(notificationRequest : UNNotificationRequest){
+        UNUserNotificationCenter.current().add(notificationRequest)
+    }
 
 }
 extension TrendingViewController : NetworkErrorPopupViewControllerDelegate{

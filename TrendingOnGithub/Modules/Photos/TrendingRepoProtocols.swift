@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 protocol TrendingViewToPresenterProtocol: AnyObject{
     
@@ -19,6 +20,7 @@ protocol TrendingViewToPresenterProtocol: AnyObject{
 protocol TrendingPresenterToViewProtocol: AnyObject{
     func showTrendingRepos(repoEntArray:[TrendingModel])
     func showError()
+    func notifyDataFetchedSuccessfully(notificationRequest : UNNotificationRequest)
 }
 
 protocol TrendingPresenterToRouterProtocol: AnyObject {
